@@ -20,7 +20,7 @@ export async function transferToken({ tokenContractAddress, fromAddress, toAddre
   );
   const tokenContract = await contracts.getContractAt('Token', tokenContractAddress);
 
-  const receipt = await tokenContract.transfer().send({
+  const receipt = await tokenContract.methods.transfer().send({
     from: fromAddress,
     gas: 3000000,
   });

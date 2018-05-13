@@ -10,6 +10,13 @@ const Contracts = {
     this[name] = require(`${BUILDS_FOLDER}${name}.json`);
     return this[name];
   },
+  
+  getContract(name) {
+    if (!this[name]) {
+      this.getBuild(name);
+    }
+    return new web3.eth.Contract(this[name].abi);
+  },
 
   getContractAt(name, address) {
     if (!this[name]) {
@@ -19,6 +26,7 @@ const Contracts = {
   },
 
   async newContract(contractObject, from, ...contractArguments) {
+    console.log(contractObject)
     const newContract = await contractObject
       .deploy({
         arguments: contractArguments,

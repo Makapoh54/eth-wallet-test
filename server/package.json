@@ -1,0 +1,52 @@
+{
+  "name": "eth-wallet-test",
+  "version": "0.1.0",
+  "scripts": {
+    "compile": "babel-node ./utils/solcCompiler.js",
+    "dev": "nodemon --exec babel-node ./server.js",
+    "start": "babel-node ./server.js",
+    "lint": "eslint",
+    "eslint": "eslint ./**/*.js",
+    "prettify": "prettier --write",
+    "test": "mocha 0 --require babel-polyfill --require babel-register --exit test/[0-9]*.js"
+  },
+  "config": {
+    "debug": true
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Makapoh54/eth-wallet-test.git"
+  },
+  "author": "AntonsC",
+  "dependencies": {
+    "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
+    "clear-module": "^2.1.0",
+    "connect-mongo": "^2.0.0",
+    "express": "^4.14.0",
+    "express-session": "^1.15.6",
+    "lodash": "^4.17.4",
+    "mocha": "^5.1.1",
+    "mongoose": "^5.1.0",
+    "socket.io": "^2.0.4",
+    "solc": "0.4.23",
+    "errorhandler": "^1.4.3",
+    "body-parser": "^1.15.2",
+    "truffle-artifactor": "^3.0.0",
+    "web3": "^1.0.0-beta.34",
+    "winston": "^3.0.0-rc1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-polyfill": "^6.26.0",
+    "babel-register": "^6.26.0",
+    "eslint": "^4.10.0",
+    "eslint-config-airbnb-base": "12.1.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-prettier": "^2.5.0",
+    "nodemon": "^1.11.0",
+    "prettier": "^1.10.2"
+  }
+}

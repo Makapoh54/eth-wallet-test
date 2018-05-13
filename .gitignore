@@ -1,0 +1,10 @@
+.DS_Store
+.idea
+.svn
+.git
+node_modules
+.vagrant
+.vscode
+server/logs/*
+server/uploads/*
+server/gen/*

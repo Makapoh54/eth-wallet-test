@@ -19,7 +19,7 @@ export async function transferEth({ fromAddress, toAddress, ethAmount }) {
   const receipt = await web3.eth.sendTransaction({
     from: fromAddress,
     to: toAddress,
-    value: web3.toWei(ethAmount, 'ether'),
+    value: web3.utils.toWei(ethAmount, 'ether'),
   });
 
   logger.log('debug', 'transferEth: %s', receipt);

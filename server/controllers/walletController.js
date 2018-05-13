@@ -7,7 +7,8 @@ const logger = require('../utils/logger')('walletController');
 export async function createSaveWallet(req, res) {
   logger.log('debug', 'createSaveWallet - start: %j', req.body);
   const walletAddress = await walletWrapper.createWallet();
-  await walletWrapper.transferEth({ from: DEFAULT_ACC, to: walletAddress, ethAmount: 0.01 });
+  await web3.eth.personal.unlockAccount(walletAddress, '', 0); 
+  await walletWrapper.transferEth({ fromAddress: DEFAULT_ACC, toAddress: walletAddress, ethAmount: '0.01' });
   logger.log('debug', 'createSaveWallet - end: %j', walletAddress);
   res.status(200).send({ data: { walletAddress }, error: null });
 }

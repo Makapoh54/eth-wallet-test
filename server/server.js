@@ -9,7 +9,6 @@ import http from 'http';
 import socket from 'socket.io';
 import asyncErrorHandler from './middlewares/asyncErrorHandler';
 import { APP_CONF } from './constants';
-import contracts from './wrappers/contracts';
 
 import indexController from './controllers/indexController';
 import * as tokenController from './controllers/tokenController';
@@ -54,12 +53,13 @@ app.use(express.static(path.join(__dirname, '../', 'client', 'build'), { maxAge:
 
 // Routes controllers
 app.post('/api/v1/tokens', asyncErrorHandler(tokenController.createSaveToken));
-app.post('/api/v1/tokens/transfers', asyncErrorHandler(tokenController.transferToken));
-app.get('/api/v1/tokens/balance', asyncErrorHandler(tokenController.getTokenBalanceOf));
+app.post('/api/v1/tokens/:address/transfers', asyncErrorHandler(tokenController.transferToken));
+app.get('/api/v1/tokens/:address/balance', asyncErrorHandler(tokenController.getTokenBalanceOf));
 
-app.post('/api/v1/wallet', asyncErrorHandler(walletController.createSaveWallet));
-app.post('/api/v1/wallet/transfers', asyncErrorHandler(walletController.transferEth));
-app.get('/api/v1/wallet/balance', asyncErrorHandler(walletController.getEthBalanceOf));
+app.post('/api/v1/wallets', asyncErrorHandler(walletController.createSaveWallet));
+app.get('/api/v1/wallets', asyncErrorHandler(walletController.getAllWallets));
+app.post('/api/v1/wallets/:address/transfers', asyncErrorHandler(walletController.transferEth));
+app.get('/api/v1/wallets/:address/balance', asyncErrorHandler(walletController.getEthBalanceOf));
 
 // Publish the frontend index.
 app.use('/*', indexController);

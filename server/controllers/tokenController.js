@@ -12,15 +12,20 @@ export async function createSaveToken(req, res) {
 }
 
 export async function transferToken(req, res) {
-  logger.log('debug', 'transferToken - start: %j', req.body);
-  await tokenWrapper.transferToken(req.body);
+  logger.log('debug', 'transferToken - start: %j, %j', req.body, req.params);
+  const { address } = req.params;
+  await tokenWrapper.transferToken({ tokenContractAddress: address, ...req.body });
   logger.log('debug', 'transferToken - end');
   res.status(200).send({ data: null, error: null });
 }
 
 export async function getTokenBalanceOf(req, res) {
-  logger.log('debug', 'getTokenBalanceOf - start: %s', req.body);
-  const balance = await tokenWrapper.getTokenBalanceOf(req.body);
+  logger.log('debug', 'getTokenBalanceOf - start: %j %j', req.body, req.params);
+  const { address } = req.params;
+  const balance = await tokenWrapper.getTokenBalanceOf({
+    tokenContractAddress: address,
+    ...req.body,
+  });
   logger.log('debug', 'getTokenBalanceOf - end: %j', balance);
   res.status(200).send({ data: { balance }, error: null });
 }

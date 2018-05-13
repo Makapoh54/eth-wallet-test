@@ -7,21 +7,27 @@ const logger = require('../utils/logger')('walletController');
 export async function createSaveWallet(req, res) {
   logger.log('debug', 'createSaveWallet - start: %j', req.body);
   const walletAddress = await walletWrapper.createWallet();
-  await web3.eth.personal.unlockAccount(walletAddress, '', 0); 
-  await walletWrapper.transferEth({ fromAddress: DEFAULT_ACC, toAddress: walletAddress, ethAmount: '0.01' });
+  await web3.eth.personal.unlockAccount(walletAddress, '', 0);
+  await walletWrapper.transferEth({
+    fromAddress: DEFAULT_ACC,
+    toAddress: walletAddress,
+    ethAmount: '0.01',
+  });
   logger.log('debug', 'createSaveWallet - end: %j', walletAddress);
   res.status(200).send({ data: { walletAddress }, error: null });
 }
 
 export async function transferEth(req, res) {
-  logger.log('debug', 'transferEth - start: %j', req.body);
-  await walletWrapper.transferEth(req.body);
+  logger.log('debug', 'transferEth - start: %j', req.params, req.body);
+  const { address } = req.params;
+  await walletWrapper.transferEth({ fromAddress: address, ...req.body });
   res.status(200).send({ data: null, error: null });
 }
 
 export async function getEthBalanceOf(req, res) {
-  logger.log('debug', 'getEthBalanceOf - start: %s', req.body);
-  const balance = await walletWrapper.getEthBalanceOf(req.body);
+  logger.log('debug', 'getEthBalanceOf - start: %s', req.params);
+  const { address } = req.params;
+  const balance = await walletWrapper.getEthBalanceOf({ walletAddress: address });
   logger.log('debug', 'getEthBalanceOf - end: %j', balance);
   res.status(200).send({ data: { balance }, error: null });
 }

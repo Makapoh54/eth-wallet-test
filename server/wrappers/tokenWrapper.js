@@ -31,11 +31,11 @@ export async function transferToken({ contractAddress, fromAddress, toAddress, t
 export async function getTokenBalanceOf({ tokenAddress, accountAddress }) {
   logger.log(
     'debug',
-    'getBalanceOf tokenAddress: %s, account: %s',
-    tokenAddress,
+    'getBalanceOf contractAddress: %s, account: %s',
+    contractAddress,
     accountAddress,
   );
-  const tokenContract = await contracts.getContractAt('Token', tokenAddress);
+  const tokenContract = await contracts.getContractAt('Token', contractAddress);
   const balance = await tokenContract.methods.balanceOf(accountAddress).call();
   logger.log('debug', 'balance: %j', balance);
   return balance;

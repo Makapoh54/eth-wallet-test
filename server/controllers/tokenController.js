@@ -7,7 +7,7 @@ export async function createSaveToken(req, res) {
   logger.log('debug', 'createSaveToken - start: %j', req.body);
   const owner = req.body.ownerAddress;
   const tokenAddress = await tokenWrapper.createToken(owner);
-  await TokenContractsModel.addTokenContractToSet({ owner, tokenAddress });
+  await TokenContractsModel.addTokenContractToSet(tokenAddress);
   logger.log('debug', 'createSaveToken - end: %j', tokenAddress);
   res.status(200).send({ data: { tokenAddress }, error: null });
 }
@@ -33,7 +33,7 @@ export async function getTokenBalanceOf(req, res) {
 
 export async function getAllTokens(req, res) {
   logger.log('debug', 'getAllTokens - start');
-  const tokens = await TokenContractsModel.getAllTokenContracts();
+  const { tokens } = await TokenContractsModel.getAllTokenContracts();
   logger.log('debug', 'getAllTokens - end: %j', tokens);
   res.status(200).send({ data: { tokens }, error: null });
 }

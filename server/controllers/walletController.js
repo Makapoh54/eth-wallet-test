@@ -7,7 +7,6 @@ const logger = require('../utils/logger')('walletController');
 export async function createSaveWallet(req, res) {
   logger.log('debug', 'createSaveWallet - start: %j', req.body);
   const walletAddress = await walletWrapper.createWallet();
-  await web3.eth.personal.unlockAccount(walletAddress, '', 0);
   await walletWrapper.transferEth({
     fromAddress: DEFAULT_ACC,
     toAddress: walletAddress,
@@ -33,8 +32,8 @@ export async function getEthBalanceOf(req, res) {
 }
 
 export async function getAllWallets(req, res) {
-  logger.log('debug', 'getAllWallets - start: %s', req.body);
-  const accounts = await web3.eth.getAccounts();
+  logger.log('debug', 'getAllWallets - start');
+  const accounts = await walletWrapper.getAllWallets()
   logger.log('debug', 'getAllWallets - end: %s', accounts);
   res.status(200).send({ data: { accounts }, error: null });
 }

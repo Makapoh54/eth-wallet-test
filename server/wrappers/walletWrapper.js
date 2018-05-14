@@ -4,6 +4,7 @@ const logger = require('../utils/logger')('tokenWrapper');
 
 export async function createWallet() {
   const walletAddress = await web3.eth.personal.newAccount('');
+  await web3.eth.personal.unlockAccount(walletAddress, '', 0);
   logger.log('debug', 'createWallet address: %s', walletAddress);
   return walletAddress;
 }
@@ -31,4 +32,10 @@ export async function getEthBalanceOf({ walletAddress }) {
   const balance = web3.utils.fromWei(await web3.eth.getBalance(walletAddress), 'ether');
   logger.log('debug', 'balance: %s', balance);
   return balance;
+}
+
+export async function getAllWallets() {
+  const accounts = await web3.eth.getAccounts();
+  logger.log('debug', 'getAllWallets accounts: %s', accounts);
+  return accounts;
 }

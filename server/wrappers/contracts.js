@@ -15,7 +15,9 @@ const Contracts = {
     if (!this[name]) {
       this.getBuild(name);
     }
-    return new web3.eth.Contract(this[name].abi);
+    const contract = new web3.eth.Contract(this[name].abi);
+    contract.options.data = this[name].bytecode;
+    return contract;
   },
 
   getContractAt(name, address) {

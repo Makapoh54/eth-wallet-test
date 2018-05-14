@@ -12,10 +12,10 @@ export async function createToken(ownerAddress) {
 export async function transferToken({ contractAddress, fromAddress, toAddress, tokenAmount }) {
   logger.log(
     'debug',
-    'transferToken contractAddress: %s, fromAcc: %s, toAcc: %s, tokenAmount: %s',
+    'transferToken contractAddress: %s, fromAddress: %s, toAddress: %s, tokenAmount: %s',
     contractAddress,
-    fromAccount,
-    toAccount,
+    fromAddress,
+    toAddress,
     tokenAmount,
   );
   const tokenContract = await contracts.getContractAt('Token', contractAddress);

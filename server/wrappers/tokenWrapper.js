@@ -28,7 +28,7 @@ export async function transferToken({ contractAddress, fromAddress, toAddress, t
   return receipt;
 }
 
-export async function getTokenBalanceOf({ tokenAddress, accountAddress }) {
+export async function getTokenBalanceOf({ contractAddress, accountAddress }) {
   logger.log(
     'debug',
     'getBalanceOf contractAddress: %s, account: %s',

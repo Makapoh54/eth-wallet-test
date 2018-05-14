@@ -10,7 +10,7 @@ const Contracts = {
     this[name] = require(`${BUILDS_FOLDER}${name}.json`);
     return this[name];
   },
-  
+
   getContract(name) {
     if (!this[name]) {
       this.getBuild(name);
@@ -28,7 +28,6 @@ const Contracts = {
   },
 
   async newContract(contractObject, from, ...contractArguments) {
-    console.log(from)
     const newContract = await contractObject
       .deploy({
         arguments: contractArguments,

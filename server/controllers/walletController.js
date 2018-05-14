@@ -33,7 +33,7 @@ export async function getEthBalanceOf(req, res) {
 
 export async function getAllWallets(req, res) {
   logger.log('debug', 'getAllWallets - start');
-  const accountAddresses = await walletWrapper.getAllWallets()
+  const accountAddresses = await walletWrapper.getAllWallets();
   logger.log('debug', 'getAllWallets - end: %s', accountAddresses);
   res.status(200).send({ data: { accountAddresses }, error: null });
 }

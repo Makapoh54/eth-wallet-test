@@ -24,7 +24,7 @@ export async function getTokenBalanceOf(req, res) {
   const { contractAddress, accountAddress } = req.params;
   const balance = await tokenWrapper.getTokenBalanceOf({
     contractAddress,
-    accountAddress
+    accountAddress,
   });
   logger.log('debug', 'getTokenBalanceOf - end: %j', balance);
   res.status(200).send({ data: { balance }, error: null });

@@ -14,7 +14,8 @@ const saveOptions = { upsert: true, new: true, runValidators: true };
 export const save = async model => new TokensModel(model).save();
 
 export async function addTokenContractToSet(address) {
-  await TokensModel.findOneAndUpdate({},
+  await TokensModel.findOneAndUpdate(
+    {},
     {
       $push: {
         tokens: address,
@@ -26,9 +27,9 @@ export async function addTokenContractToSet(address) {
 }
 
 export async function getLastTokenContract() {
-  return TokensModel.findOne({}, {tokens:{$slice: 1}});
+  return TokensModel.findOne({}, { tokens: { $slice: 1 } });
 }
 
 export async function getAllTokenContracts() {
-  return TokensModel.findOne({}, 'tokens -_id') || {tokens: []};
+  return TokensModel.findOne({}, 'tokens -_id') || { tokens: [] };
 }

@@ -54,13 +54,25 @@ app.use(express.static(path.join(__dirname, '../', 'client', 'build'), { maxAge:
 // Routes controllers
 app.post('/api/v1/tokens', asyncErrorHandler(tokenController.createSaveToken));
 app.get('/api/v1/tokens', asyncErrorHandler(tokenController.getAllTokens));
-app.post('/api/v1/tokens/:contractAddress/account/:accountAddress/transfers', asyncErrorHandler(tokenController.transferToken));
-app.get('/api/v1/tokens/:contractAddress/account/:accountAddress/balance', asyncErrorHandler(tokenController.getTokenBalanceOf));
+app.post(
+  '/api/v1/tokens/:contractAddress/account/:accountAddress/transfers',
+  asyncErrorHandler(tokenController.transferToken),
+);
+app.get(
+  '/api/v1/tokens/:contractAddress/account/:accountAddress/balance',
+  asyncErrorHandler(tokenController.getTokenBalanceOf),
+);
 
 app.post('/api/v1/wallets', asyncErrorHandler(walletController.createSaveWallet));
 app.get('/api/v1/wallets', asyncErrorHandler(walletController.getAllWallets));
-app.post('/api/v1/wallets/:accountAddress/transfers', asyncErrorHandler(walletController.transferEth));
-app.get('/api/v1/wallets/:accountAddress/balance', asyncErrorHandler(walletController.getEthBalanceOf));
+app.post(
+  '/api/v1/wallets/:accountAddress/transfers',
+  asyncErrorHandler(walletController.transferEth),
+);
+app.get(
+  '/api/v1/wallets/:accountAddress/balance',
+  asyncErrorHandler(walletController.getEthBalanceOf),
+);
 
 // Publish the frontend index.
 app.use('/*', indexController);

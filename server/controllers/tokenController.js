@@ -5,8 +5,9 @@ const logger = require('../utils/logger')('tokenController');
 
 export async function createSaveToken(req, res) {
   logger.log('debug', 'createSaveToken - start: %j', req.body);
-  const tokenAddress = await tokenWrapper.createToken(req.body.fromAddress);
-  await TokenContractsModel.addTokenContractToSet({ owner: req.body.ownerAddress, tokenAddress });
+  const owner = req.body.ownerAddress;
+  const tokenAddress = await tokenWrapper.createToken(owner);
+  await TokenContractsModel.addTokenContractToSet({ owner, tokenAddress });
   logger.log('debug', 'createSaveToken - end: %j', tokenAddress);
   res.status(200).send({ data: { tokenAddress }, error: null });
 }

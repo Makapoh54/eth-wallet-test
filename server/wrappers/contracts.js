@@ -28,7 +28,7 @@ const Contracts = {
   },
 
   async newContract(contractObject, from, ...contractArguments) {
-    console.log(contractObject)
+    console.log(from)
     const newContract = await contractObject
       .deploy({
         arguments: contractArguments,

@@ -53,6 +53,7 @@ app.use(express.static(path.join(__dirname, '../', 'client', 'build'), { maxAge:
 
 // Routes controllers
 app.post('/api/v1/tokens', asyncErrorHandler(tokenController.createSaveToken));
+app.get('/api/v1/tokens', asyncErrorHandler(tokenController.getAllTokens));
 app.post('/api/v1/tokens/:address/transfers', asyncErrorHandler(tokenController.transferToken));
 app.get('/api/v1/tokens/:address/balance', asyncErrorHandler(tokenController.getTokenBalanceOf));
 

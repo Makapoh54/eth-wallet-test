@@ -30,3 +30,10 @@ export async function getTokenBalanceOf(req, res) {
   logger.log('debug', 'getTokenBalanceOf - end: %j', balance);
   res.status(200).send({ data: { balance }, error: null });
 }
+
+export async function getAllTokens(req, res) {
+  logger.log('debug', 'getAllTokens - start');
+  const tokens = await TokenContractsModel.getAllTokenContracts();
+  logger.log('debug', 'getAllTokens - end: %j', tokens);
+  res.status(200).send({ data: { tokens }, error: null });
+}

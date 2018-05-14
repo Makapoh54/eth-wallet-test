@@ -18,6 +18,7 @@ export async function addTokenContractToSet(address) {
     {
       $push: {
         tokens: address,
+        $position: 0,
       },
     },
     saveOptions,
@@ -25,8 +26,7 @@ export async function addTokenContractToSet(address) {
 }
 
 export async function getLastTokenContract() {
-  console.log(TokensModel.findOne({}, 'tokens -_id'))
-  return TokensModel.findOne({}, 'tokens -_id');
+  return TokensModel.findOne({}, {tokens:{$slice: 1}});
 }
 
 export async function getAllTokenContracts() {

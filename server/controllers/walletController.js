@@ -10,7 +10,7 @@ export async function createSaveWallet(req, res) {
   await walletWrapper.transferEth({
     fromAddress: DEFAULT_ACC,
     toAddress: walletAddress,
-    ethAmount: '0.01',
+    ethAmount: '0.05',
   });
   logger.log('debug', 'createSaveWallet - end: %s', walletAddress);
   res.status(200).send({ data: { walletAddress }, error: null });
@@ -18,22 +18,22 @@ export async function createSaveWallet(req, res) {
 
 export async function transferEth(req, res) {
   logger.log('debug', 'transferEth - start: %s', req.params, req.body);
-  const { address } = req.params;
-  await walletWrapper.transferEth({ fromAddress: address, ...req.body });
+  const { accountAddress } = req.params;
+  await walletWrapper.transferEth({ fromAddress: accountAddress, ...req.body });
   res.status(200).send({ data: null, error: null });
 }
 
 export async function getEthBalanceOf(req, res) {
   logger.log('debug', 'getEthBalanceOf - start: %s', req.params);
-  const { address } = req.params;
-  const balance = await walletWrapper.getEthBalanceOf({ walletAddress: address });
+  const { accountAddress } = req.params;
+  const balance = await walletWrapper.getEthBalanceOf({ accountAddress });
   logger.log('debug', 'getEthBalanceOf - end: %s', balance);
   res.status(200).send({ data: { balance }, error: null });
 }
 
 export async function getAllWallets(req, res) {
   logger.log('debug', 'getAllWallets - start');
-  const accounts = await walletWrapper.getAllWallets()
-  logger.log('debug', 'getAllWallets - end: %s', accounts);
-  res.status(200).send({ data: { accounts }, error: null });
+  const accountAddresses = await walletWrapper.getAllWallets()
+  logger.log('debug', 'getAllWallets - end: %s', accountAddresses);
+  res.status(200).send({ data: { accountAddresses }, error: null });
 }

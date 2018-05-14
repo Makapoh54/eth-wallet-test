@@ -27,9 +27,9 @@ export async function transferEth({ fromAddress, toAddress, ethAmount }) {
   return receipt;
 }
 
-export async function getEthBalanceOf({ walletAddress }) {
-  logger.log('debug', 'getEthBalanceOf walletAddress: %s', walletAddress);
-  const balance = web3.utils.fromWei(await web3.eth.getBalance(walletAddress), 'ether');
+export async function getEthBalanceOf({ accountAddress }) {
+  logger.log('debug', 'getEthBalanceOf accountAddress: %s', accountAddress);
+  const balance = web3.utils.fromWei(await web3.eth.getBalance(accountAddress), 'ether');
   logger.log('debug', 'balance: %s', balance);
   return balance;
 }

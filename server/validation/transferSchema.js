@@ -1,17 +1,19 @@
+import web3 from '../utils/web3';
+
+const addressCheck = {
+  options: value => web3.utils.isAddress(value),
+};
+
 const ethTransferSchema = {
   accountAddress: {
     in: ['params'],
     errorMessage: 'accountAddress is invalid',
-    matches: {
-      options: /^0x[a-fA-F0-9]{40}$/g,
-    },
+    custom: addressCheck,
   },
   toAddress: {
     in: ['body'],
     errorMessage: 'toAddress is invalid',
-    matches: {
-      options: /^0x[a-fA-F0-9]{40}$/g,
-    },
+    custom: addressCheck,
   },
   ethAmount: {
     in: ['body'],
@@ -24,16 +26,12 @@ const tokenTransferSchema = {
   contractAddress: {
     in: ['params'],
     errorMessage: 'contractAddress is invalid',
-    matches: {
-      options: /^0x[a-fA-F0-9]{40}$/g,
-    },
+    custom: addressCheck,
   },
   accountAddress: {
     in: ['params'],
     errorMessage: 'accountAddress is invalid',
-    matches: {
-      options: /^0x[a-fA-F0-9]{40}$/g,
-    },
+    custom: addressCheck,
   },
   toAddress: {
     in: ['body'],

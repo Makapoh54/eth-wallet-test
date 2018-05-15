@@ -7,6 +7,8 @@ import errorHandler from 'errorhandler';
 import path from 'path';
 import http from 'http';
 import cors from 'cors';
+import { checkSchema } from 'express-validator/check';
+import { ethTransferSchema, tokenTransferSchema } from './validation/transferSchema';
 import asyncErrorHandler from './middlewares/asyncErrorHandler';
 import { APP_CONF } from './constants';
 
@@ -54,6 +56,7 @@ app.post('/api/v1/wallets', asyncErrorHandler(walletController.createSaveWallet)
 app.get('/api/v1/wallets', asyncErrorHandler(walletController.getAllWallets));
 app.post(
   '/api/v1/wallets/:accountAddress/transfers',
+  checkSchema(ethTransferSchema),
   asyncErrorHandler(walletController.transferEth),
 );
 app.get(
@@ -66,6 +69,7 @@ app.get('/api/v1/tokens', asyncErrorHandler(tokenController.getAllTokens));
 app.get('/api/v1/tokens/last', asyncErrorHandler(tokenController.getLastToken));
 app.post(
   '/api/v1/tokens/:contractAddress/accounts/:accountAddress/transfers',
+  checkSchema(tokenTransferSchema),
   asyncErrorHandler(tokenController.transferToken),
 );
 app.get(

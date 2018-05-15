@@ -1,3 +1,4 @@
+import { validationResult } from 'express-validator/check';
 import * as tokenWrapper from '../wrappers/tokenWrapper';
 import * as TokenContractsModel from '../models/TokenContractsModel';
 
@@ -13,6 +14,7 @@ export async function createSaveToken(req, res) {
 
 export async function transferToken(req, res) {
   logger.log('debug', 'transferToken %j, %j', req.body, req.params);
+  validationResult(req).throw();
   const { contractAddress, accountAddress } = req.params;
   await tokenWrapper.transferToken({ contractAddress, fromAddress: accountAddress, ...req.body });
   logger.log('info', 'transferToken Token transferred');

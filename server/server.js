@@ -12,6 +12,7 @@ import { APP_CONF } from './constants';
 
 import indexController from './controllers/indexController';
 import * as tokenController from './controllers/tokenController';
+import getAccountsEthTokenBalance from './controllers/auditController';
 import * as walletController from './controllers/walletController';
 
 const logger = require('./utils/logger')('server');
@@ -52,6 +53,7 @@ app.use(
 app.use(express.static(path.join(__dirname, '../', 'client', 'build'), { maxAge: 31557600000 }));
 
 // Routes controllers
+
 app.post('/api/v1/tokens', asyncErrorHandler(tokenController.createSaveToken));
 app.get('/api/v1/tokens', asyncErrorHandler(tokenController.getAllTokens));
 app.post(
@@ -73,6 +75,8 @@ app.get(
   '/api/v1/wallets/:accountAddress/balance',
   asyncErrorHandler(walletController.getEthBalanceOf),
 );
+
+app.get('/api/v1/audit', asyncErrorHandler(getAccountsEthTokenBalance));
 
 // Publish the frontend index.
 app.use('/*', indexController);

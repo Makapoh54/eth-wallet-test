@@ -36,3 +36,10 @@ export async function getAllTokens(req, res) {
   logger.log('debug', 'getAllTokens - end: %j', tokens);
   res.status(200).send({ data: { tokens }, error: null });
 }
+
+export async function getLastToken(req, res) {
+  logger.log('debug', 'getLastToken - start');
+  const tokenAddress = await TokenContractsModel.getLastTokenContract();
+  logger.log('debug', 'getLastToken - end: %j', tokenAddress);
+  res.status(200).send({ data: { tokenAddress }, error: null });
+}

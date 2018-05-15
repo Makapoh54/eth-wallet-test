@@ -56,12 +56,13 @@ app.use(express.static(path.join(__dirname, '../', 'client', 'build'), { maxAge:
 
 app.post('/api/v1/tokens', asyncErrorHandler(tokenController.createSaveToken));
 app.get('/api/v1/tokens', asyncErrorHandler(tokenController.getAllTokens));
+app.get('/api/v1/tokens/last', asyncErrorHandler(tokenController.getLastToken));
 app.post(
-  '/api/v1/tokens/:contractAddress/account/:accountAddress/transfers',
+  '/api/v1/tokens/:contractAddress/accounts/:accountAddress/transfers',
   asyncErrorHandler(tokenController.transferToken),
 );
 app.get(
-  '/api/v1/tokens/:contractAddress/account/:accountAddress/balance',
+  '/api/v1/tokens/:contractAddress/accounts/:accountAddress/balance',
   asyncErrorHandler(tokenController.getTokenBalanceOf),
 );
 

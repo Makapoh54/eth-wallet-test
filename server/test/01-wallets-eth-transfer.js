@@ -10,7 +10,7 @@ let server;
 let newWalletAddress;
 let walletsAddresses;
 
-describe('create-channel', function() {
+describe('wallets-eth-transfer', function() {
   this.timeout(50000);
 
   before(async function() {

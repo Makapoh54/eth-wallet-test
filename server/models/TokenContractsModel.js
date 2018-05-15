@@ -28,9 +28,7 @@ export async function addTokenContractToSet(address) {
 }
 
 export async function getLastTokenContract() {
-  const tokensModel = await TokensModel.aggregate([
-    { $project: { tokens: { $slice: ['$tokens', -1] } } },
-  ]);
+  const tokensModel = await TokensModel.findOne({}, { tokens: { $slice: -1 } });
   return tokensModel && !isEmpty(tokensModel.tokens) ? tokensModel.tokens[0] : '';
 }
 

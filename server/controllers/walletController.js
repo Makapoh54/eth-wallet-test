@@ -18,7 +18,7 @@ export async function createSaveWallet(req, res) {
 
 export async function transferEth(req, res) {
   logger.log('debug', 'transferEth %j %j', req.params, req.body);
-  validationResult(req).throw();
+  // validationResult(req).throw();
   const { accountAddress } = req.params;
   await walletWrapper.transferEth({ fromAddress: accountAddress, ...req.body });
   logger.log('info', 'transferEth eth transferred');

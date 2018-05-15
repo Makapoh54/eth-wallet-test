@@ -7,6 +7,7 @@ import errorHandler from 'errorhandler';
 import path from 'path';
 import http from 'http';
 import socket from 'socket.io';
+import cors from 'cors';
 import asyncErrorHandler from './middlewares/asyncErrorHandler';
 import { APP_CONF } from './constants';
 
@@ -48,6 +49,8 @@ app.use(
     }),
   }),
 );
+
+app.use(cors());
 
 // Publish the frontend static.
 app.use(express.static(path.join(__dirname, '../', 'client', 'build'), { maxAge: 31557600000 }));

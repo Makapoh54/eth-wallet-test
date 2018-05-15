@@ -45,7 +45,7 @@ async function solcCompiler() {
         contract_name: contractName,
         abi,
         binary,
-        events,
+        events,l
       };
 
       allPromises.push(

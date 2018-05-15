@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { isEmpty } from 'lodash';
 
 const tokensSchema = new mongoose.Schema(
   {
@@ -27,9 +28,11 @@ export async function addTokenContractToSet(address) {
 }
 
 export async function getLastTokenContract() {
-  return TokensModel.findOne({}, { tokens: { $slice: 1 } });
+  const tokensModel = TokensModel.findOne({}, { tokens: { $slice: -1 } });
+  return tokensModel && !isEmpty(tokensModel.tokens) ? tokensModel.tokens[0] : '';
 }
 
 export async function getAllTokenContracts() {
-  return TokensModel.findOne({}, 'tokens -_id') || { tokens: [] };
+  const tokensModel = TokensModel.findOne({}, 'tokens -_id');
+  return tokensModel ? tokensModel.tokens : [];
 }

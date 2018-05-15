@@ -36,8 +36,8 @@ const Contracts = {
         from,
         gas: 4700000,
       })
-      .on('transactionHash', txHash => logger.log('debug', `newPublicContract: txHash:${txHash}`));
-    logger.log('debug', `newPublicContract: ${newContract.options.address}`);
+      .on('transactionHash', txHash => logger.log('debug', `newContract: txHash:${txHash}`));
+    logger.log('debug', `newContract: ${newContract.options.address}`);
     return newContract;
   },
 };

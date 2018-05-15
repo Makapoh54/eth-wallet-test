@@ -3,6 +3,7 @@ import { BUILDS_FOLDER } from '../constants';
 
 const logger = require('../utils/logger')('contracts');
 
+// Contract are use to manage compiled and deployed contracts objects.
 const Contracts = {
   getBuild(name) {
     delete require.cache[require.resolve(`${BUILDS_FOLDER}${name}.json`)];

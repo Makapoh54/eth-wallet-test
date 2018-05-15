@@ -5,10 +5,9 @@ import * as TokenContractsModel from '../models/TokenContractsModel';
 const logger = require('../utils/logger')('auditController');
 
 export default async function getAccountsEthTokenBalance(req, res) {
-  logger.log('debug', 'getAccountsEthTokenBalance - start: %j', req.body);
+  logger.log('debug', 'getAccountsEthTokenBalance %j', req.body);
   const accountAddresses = await walletWrapper.getAllWallets();
   const contractAddress = await TokenContractsModel.getLastTokenContract();
-  console.log(accountAddresses, contractAddress);
   const accountAudit = await Promise.all(
     accountAddresses.map(async accountAddress => {
       const ethBalance = await walletWrapper.getEthBalanceOf({ accountAddress });
@@ -21,6 +20,6 @@ export default async function getAccountsEthTokenBalance(req, res) {
       return { accountAddress, ethBalance, tokenBalance };
     }),
   );
-  logger.log('debug', 'getAccountsEthTokenBalance - end: %s', accountAudit);
+  logger.log('debug', 'getAccountsEthTokenBalance accountAudit %j', accountAudit);
   res.status(200).send({ data: { accountAudit }, error: null });
 }

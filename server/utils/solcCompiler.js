@@ -7,18 +7,17 @@ import { CONTRACTS_FOLDER, BUILDS_FOLDER } from '../constants';
 
 const logger = require('../utils/logger')('solcCompiler');
 
+// solcCompiler used to compile all the contract from contracts folder and save build files using truffle artifactor
 async function solcCompiler() {
-  const input = {};
   const allPromises = [];
   deleteFolderRecursive(BUILDS_FOLDER);
-
-  let files;
+  let files = [];
   try {
     files = fs.readdirSync(CONTRACTS_FOLDER);
   } catch (err) {
     logger.log('error', 'fs.readdirSync error: %s', err);
   }
-
+  const input = {};
   files.forEach(file => {
     if (file.endsWith('.sol')) {
       input[file] = fs.readFileSync(`${CONTRACTS_FOLDER}${file}`, 'utf8');
@@ -35,6 +34,7 @@ async function solcCompiler() {
     process.exit(1);
   }
 
+  // TODO Not the best code: get rid of for in loop, make it more function e.g. Promise.all(.map(async))
   for (const key in output.contracts) {
     if (Object.prototype.hasOwnProperty.call(output.contracts, key)) {
       const contractName = key.substring(key.indexOf(':') + 1);
@@ -45,7 +45,8 @@ async function solcCompiler() {
         contract_name: contractName,
         abi,
         binary,
-        events,l
+        events,
+        l,
       };
 
       allPromises.push(
@@ -61,6 +62,6 @@ async function solcCompiler() {
   logger.log('info', 'Contracts successfuly compiled!');
 }
 
-export default (async () => await solcCompiler())().catch(error =>
+export default (async () => solcCompiler())().catch(error =>
   logger.log('error', 'Contracts compiling was not finished: %s', error),
 );

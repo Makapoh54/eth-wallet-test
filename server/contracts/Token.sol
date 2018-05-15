@@ -1,5 +1,6 @@
 pragma solidity ^0.4.23;
 
+// ERC 20 compatible token
 contract Token {
 
     string public constant symbol = "TK";

@@ -20,7 +20,6 @@ export async function addTokenContractToSet(address) {
     {
       $push: {
         tokens: address,
-        $position: 0,
       },
     },
     saveOptions,

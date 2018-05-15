@@ -4,42 +4,40 @@ import * as TokenContractsModel from '../models/TokenContractsModel';
 const logger = require('../utils/logger')('tokenController');
 
 export async function createSaveToken(req, res) {
-  logger.log('debug', 'createSaveToken - start: %j', req.body);
+  logger.log('debug', 'createSaveToken: %j', req.body);
   const tokenAddress = await tokenWrapper.createToken(req.body.ownerAddress);
   await TokenContractsModel.addTokenContractToSet(tokenAddress);
-  logger.log('debug', 'createSaveToken - end: %j', tokenAddress);
+  logger.log('info', 'createSaveToken New token created: %j', tokenAddress);
   res.status(200).send({ data: { tokenAddress }, error: null });
 }
 
 export async function transferToken(req, res) {
-  logger.log('debug', 'transferToken - start: %j, %j', req.body, req.params);
+  logger.log('debug', 'transferToken %j, %j', req.body, req.params);
   const { contractAddress, accountAddress } = req.params;
   await tokenWrapper.transferToken({ contractAddress, fromAddress: accountAddress, ...req.body });
-  logger.log('debug', 'transferToken - end');
+  logger.log('info', 'transferToken Token transferred');
   res.status(200).send({ data: null, error: null });
 }
 
 export async function getTokenBalanceOf(req, res) {
-  logger.log('debug', 'getTokenBalanceOf - start: %j', req.params);
+  logger.log('debug', 'getTokenBalanceOf %j', req.params);
   const { contractAddress, accountAddress } = req.params;
   const balance = await tokenWrapper.getTokenBalanceOf({
     contractAddress,
     accountAddress,
   });
-  logger.log('debug', 'getTokenBalanceOf - end: %j', balance);
+  logger.log('info', 'getTokenBalanceOf balance: ', balance);
   res.status(200).send({ data: { balance }, error: null });
 }
 
 export async function getAllTokens(req, res) {
-  logger.log('debug', 'getAllTokens - start');
   const tokens = await TokenContractsModel.getAllTokenContracts();
-  logger.log('debug', 'getAllTokens - end: %j', tokens);
+  logger.log('info', 'getAllTokens %s', tokens);
   res.status(200).send({ data: { tokens }, error: null });
 }
 
 export async function getLastToken(req, res) {
-  logger.log('debug', 'getLastToken - start');
   const tokenAddress = await TokenContractsModel.getLastTokenContract();
-  logger.log('debug', 'getLastToken - end: %j', tokenAddress);
+  logger.log('info', 'getLastToken %j', tokenAddress);
   res.status(200).send({ data: { tokenAddress }, error: null });
 }

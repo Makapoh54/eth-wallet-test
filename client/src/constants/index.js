@@ -1,6 +1,5 @@
 const ROUTES = {
   root: '/',
-  login: '/login'
 }
 
 const TABLE_HEADERS = ['#', 'Account Address', 'Eth Balance', 'Token Balance', 'Transfer'];

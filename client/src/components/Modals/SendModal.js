@@ -65,15 +65,14 @@ class SendModal extends React.Component {
     const response = await axios.post(url, { ...args });
     if (response.status === 200 ) {
       // Notification
-      this.props.getAccountAudit();
-      this.toggle();
+      await this.props.getAccountAudit();
+      await this.toggle();
     }
     this.setState({ isLoading: false });
   };
 
   onChange = e => this.setState({ [e.target.name]: e.target.value });
  
-
   render() {
     const { isLoading } = this.state;
     return (

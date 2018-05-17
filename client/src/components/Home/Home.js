@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Button, Container, Row, Col, Table } from "reactstrap";
+import { Button, Container, Row, Table } from "reactstrap";
 import SendModal from "../Modals";
 import { TABLE_HEADERS, END_POINT } from "../../constants";
 import "./Home.css";
@@ -15,13 +15,12 @@ class Home extends Component {
     this.getAccountAudit();
   }
 
-  getAccountAudit = () => {
+  getAccountAudit = async () => {
     this.setState({ isLoading: true });
-    axios
-      .get(`${END_POINT}/audit`)
-      .then(response =>
-        this.setState({ accountAudit: response.data.data.accountAudit })
-      );
+    const response = await axios.get(`${END_POINT}/audit`);
+    if (response.data) {
+      this.setState({ accountAudit: response.data.data.accountAudit })
+    }
     this.setState({ isLoading: false });
   }
 
@@ -31,7 +30,7 @@ class Home extends Component {
     const response = await axios.post(`${END_POINT}/wallets`);
     if (response.status === 200) {
       // Notification
-      this.getAccountAudit();
+      await this.getAccountAudit();
     }
     this.setState({ isLoading: false });
   }
@@ -40,11 +39,11 @@ class Home extends Component {
     this.setState({ isLoading: true });
     const response = await axios.post(
       `${END_POINT}/tokens`, 
-      {ownerAddress: this.state.accountAudit[0].accountAddress}
+      { ownerAddress: this.state.accountAudit[0].accountAddress }
     );
     if (response.status === 200) {
       // Notification
-      this.getAccountAudit();
+      await this.getAccountAudit();
     }
     this.setState({ isLoading: false });
   }

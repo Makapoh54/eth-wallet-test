@@ -29,3 +29,16 @@ Roadmap:
 - [ ] Remove hardcode from API versioning system
 - [ ] Get rid of babel-node
 - [ ] Frontend is too simple :(
+
+Api description:
+
+- POST '/api/v1/wallets' - creates new eth wallet
+- GET '/api/v1/wallets' - returns all eth wallets addresses
+- POST '/api/v1/wallets/:accountAddress/transfers' Body {toAddress, ethAmount} - creates new eth transfer
+- GET '/api/v1/wallets/:accountAddress/balance' - returns specific wallet balance
+- POST '/api/v1/tokens' - create/deploy token contract
+- GET '/api/v1/tokens' - returns all deployed token list
+- GET '/api/v1/tokens/last' - returns last deployed (active) contract
+- POST '/api/v1/tokens/:contractAddress/accounts/:accountAddress/transfers' Body {toAddress, tokenAmount} - creates new token transfer
+- GET '/api/v1/tokens/:contractAddress/accounts/:accountAddress/balance' - returns specific account token balance
+- GET '/api/v1/audit' - returns all wallets eth and active token balance
